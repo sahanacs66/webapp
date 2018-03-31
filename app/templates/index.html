@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ {% if title %}
+ <title> {{ title }} - webapp </title>
+ {% else %}
+ <title> welcome to my application! </title>
+ {% endif %}
+</head>
+<body>
+  <h1> Sign In </h1>
+  <div class="container">
+    <form action="" method="post">
+    {{ form.hidden_tag() }}
+    <p>
+      {{ form.username.label }} <br>
+      {{ form.username(size=32)}}
+      {% for error in form.username.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+    </p>
+    <p>
+      {{ form.firstName.label }} <br>
+      {{ form.firstName(size=32)}}
+      {% for error in form.firstName.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+    </p>
+    <p>
+      {{ form.lastName.label }} <br>
+      {{ form.lastName(size=32)}}
+      {% for error in form.lastName.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+    </p>
+    <p>
+      {{ form.email.label }} <br>
+      {{ form.email(size=32)}}
+      {% for error in form.email.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+    </p>
+    <p>
+      {{ form.password.label }} <br>
+      {{ form.password(size=32)}}
+      {% for error in form.password.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+    </p>
+    <p>
+    {{ form.submit() }}
+    </p>
+
+ </form>
+ <a href="{{ url_for('login') }}">Already registered? click here </a>
+ {% with messages = get_flashed_messages() %}
+       {% if messages %}
+       <ul>
+           {% for message in messages %}
+           <li>{{ message }}</li>
+           {% endfor %}
+       </ul>
+       {% endif %}
+  {% endwith %}
+ </div>
+</body>
+</html>

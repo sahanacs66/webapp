@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <div id="results">
+    {% for k,v in result.items() %}
+      <a href="{{ url_for('search_detail',id=k)}}">{{v['stationName']}}</a><br>
+    {% endfor %}
+    <p style="display:none" id="next">{{last_index}}</p><br>
+    <p style="display:none" id="count">{{count}}</p><br>
+  </div>
+</body>
+</html>

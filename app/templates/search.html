@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div>
+      {{ form.hidden_tag() }}
+      <p>
+        {{ form.search.label }} <br>
+        {{ form.search(size=150)}}
+        <span style="float:right">
+         <a href="{{ url_for('logout') }}">Logout</a></span>
+      </p>
+    </div>
+
+    <div style="margin:auto" id="prev_results">
+    </div>
+    <div style="margin:auto" id="search_results">
+    </div>
+    <a id="load_more" href="#">Load More</a><br>
+  </div>
+
+
+  <script>
+  var q = $("#search").val();
+  var start = 0;
+  var prev_data;
+
+  if(start == 0) {
+    $("#load_more").hide();
+  }
+  else {
+    $("#load_more").show();
+  }
+
+  $( "#search" ).keyup(function() {
+    q = $("#search").val();
+    $("#prev_results").html("");
+    start = 0;
+    getData();
+  });
+
+  function getData() {
+    $("#search_results").load("search_results/"+q+"?start="+start+" #results",function(data){
+      prev_data = data;
+      start = $("#search_results").find("#results").find('#next').text();
+      console.log(start);
+      var count = $("#count").text();
+      console.log(count);
+      if(count < 10) {
+        $("#load_more").hide();
+      }
+      else {
+        $("#load_more").show();
+      }
+    });
+
+  }
+
+  $("#load_more").click(function(){
+    $("#prev_results").append(prev_data);
+    prev_data = null;
+    getData();
+  });
+
+  </script>
+</body>
+</html>
